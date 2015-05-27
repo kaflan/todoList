@@ -18,8 +18,8 @@ window.addEventListener('load', function load(){
     for(i = 0; i < task.items.length; i++){
       var el = document.createElement('li');
       uList.appendChild(el);
-      console.log(task.items[i]);
       el.textContent = task.items[i];
+      task.items.sort();
     }
   }
   var valid = function (){
@@ -30,6 +30,7 @@ window.addEventListener('load', function load(){
     var I = input.value;
     task.items.push(I);
     update();
+
     localStorage.setItem('data', JSON.stringify(task));
     input.value = '';
   };
