@@ -1,41 +1,46 @@
-//Ваш код будет здесь
 var task = {
   items: []
 };
 var data = localStorage.getItem('data');
-if(data){
+if (data) {
   task = JSON.parse(data);
 }
 task.items.sort();
-window.addEventListener('load', function load(){
+window.addEventListener('load', function load() {
+  'use strict';
   var button = document.querySelector('button');
   var uList = document.querySelector('ul');
   var input = document.querySelector('input');
   var i;
-  update();
-  function update(){
+  var el;
+  var I;
+
+  function update() {
     uList.innerHTML = '';
-    for(i = 0; i < task.items.length; i++){
-      var el = document.createElement('li');
+    task.items.sort();
+    for (i = 0; i < task.items.length; i++) {
+      el = document.createElement('li');
       uList.appendChild(el);
       el.textContent = task.items[i];
-      task.items.sort();
     }
   }
-  var valid = function (){
-   return input.value.trim();
-  };
-  var mark = function (){
+
+  update();
+  function valid() {
+    return input.value.trim();
+  }
+
+  function mark() {
     if (!valid()) return;
-    var I = input.value;
+    I = input.value;
     task.items.push(I);
     update();
-
     localStorage.setItem('data', JSON.stringify(task));
     input.value = '';
-  };
+  }
+
   button.addEventListener('click', mark);
-  input.addEventListener('keyup', function(e) {
+  input.addEventListener('keyup', function keyUpValid(e) {
     if (e.keyCode !== 13) return;
     mark();
   });
